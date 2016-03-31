@@ -1,0 +1,64 @@
+
+			
+			#brand_img{
+				position: relative;
+    			top: 8px;
+    			left: 0px;
+			}
+			#helloUser{
+				color:MidnightBlue
+			}
+			.postmsgDiv{ 
+				margin-top:50px;	
+			}
+			#header_div{
+				position: relative;
+    			left: 180px;
+			}
+			.repub{
+				display: none;
+				color: Green;
+				font: bold;
+			}
+			#imageprofile{
+				width:128px;
+				height:128px;
+				
+			}
+			#photoInMsg{
+				width:40px;
+				height:40px;
+			}
+			#displayTime{
+				margin-top: -14px;
+				font-style: italic;
+			}
+			#messagesDiv{
+			margin-top: 62px;
+			}
+			
+			#aboutmeDiv{
+				
+				margin-top: 62px;
+			}
+						.navbar {
+position: relative;
+min-height: 50px;
+margin-bottom: -65x;
+border: 1px solid transparent;
+}
+			
+			
+		body { 
+
+background: url('wallpaper.jpg') no-repeat center center fixed; 
+
+-webkit-background-size: cover;
+
+-moz-background-size: cover;
+
+-o-background-size: cover;
+
+background-size: cover;
+
+}

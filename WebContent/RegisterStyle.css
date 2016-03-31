@@ -1,0 +1,44 @@
+body {
+				background-color: lightgrey;
+				background-image: url("wbackground.jpg");
+			}
+			#left{
+				 padding-top:80px;
+				 padding-left:400px
+			}
+			#welcomeHead{
+				
+			}
+			#welcomeText{
+				padding-top: 1em;
+				font-size: 150%;
+			}
+			#loginTitle , #registerTitle{
+				color:MidnightBlue
+			}
+			#loginDiv{
+				padding-top:100px;
+			    padding-left:150px
+			}
+			#userLogin{
+				width: 15em;  
+			}
+			 
+			#passwordLogin{
+				width: 15em;  
+			}
+		 
+			#userRegister{
+				width: 15em;  
+			}
+		 
+			#passwordRegister{
+				width: 15em;  
+			}
+		 
+			#nicknameRegister{
+				width: 15em;  
+			}
+			#registerErr , #loginErr{
+				color:Red
+			}

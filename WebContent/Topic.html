@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+	<head >
+		<meta charset="UTF-8">
+		
+		<title>Topic</title>
+			
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+		<link rel="stylesheet" href="TopicStyle.css">
+		<script type='text/javascript' src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+		
+
+	<script src="/New/GetInformation.js"></script>
+	<script src="/New/GetAllUsers.js"></script> 
+	<script src="/New/AllFollow.js"></script>
+	<script src="/New/GetAllMsgs.js"></script> 
+	
+	
+	<script src="/New/Displays.js"> </script>
+	<script src="/New/TopicApp.js"></script>
+	
+	
+</head>
+
+<body>
+
+<nav class="navbar navbar-default">
+		  <form class="navbar-form navbar-left" >
+		  	<a class="navbar-brand" href="Profile.html">
+	        <img id="brand_img" alt="Brand" src="brand.jpg" width="160" >
+	      </a>
+
+		  
+		  <div id="header_div">
+			<button type="button" onclick="javascript:GoToProfile();" class="btn btn-primary">
+			<span class="glyphicon glyphicon-user"></span>  My Profile</button>
+			<button type="button" onclick="javascript:GoToDiscover();" class="btn btn-primary">
+			<span class="glyphicon glyphicon-globe"></span>  Discover</button>
+		  	</div>
+		  
+		</form>
+</nav>
+
+		<div class="col-xs-3" id="aboutmeDiv" >
+		
+
+		
+			<div class="panel panel-default postmsgDiv">
+			  <div class="panel-heading " ><b>Profile Info</b></div>
+				  <div class="panel-body" >
+				  		<div class="page-header-fluid" id="profileheader">
+			  <h1 ><img src="javascript:void(0);"  id = "imageprofile" alt="Your Photo"  class="img-circle"> <small id="helloUser"></small></h1>
+			</div>
+				  <p id="aboutme"></p>
+			 </div>
+			</div>
+		
+		
+		
+		</div>
+		
+		<div class="col-xs-6">
+		
+		<div>
+		<div class="col-xs-4"></div>
+			<div class="alert alert-info"><h3 id="hashtagName"></h3></div>
+		</div>
+		
+		
+ 		 <div id="republishNote" class="alert-success repub">Message republished successfully</div>
+		<div id="postNote" class="alert-success repub">Message Posted successfully</div>
+		
+		<br>
+		
+			<div ng-app="Topics" id="Topics" ng-controller="TopicCtrl">  
+
+				<div class="modal fade" id="myModal5" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						  <div class="modal-dialog">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						        <h4 class="modal-title" id="myModalLabel">Reply</h4>
+						      </div>
+						      <div class="modal-body">
+						        
+						        <form id="ReplyForm" method="POST">
+						      	  <div class="input-group">
+									<span class="input-group-addon" id="basic-addon1"></span>
+									<textarea  name="replymsg" id="replymsg" rows="4" cols="5"  class="form-control" placeholder="" aria-describedby="basic-addon1" required ></textarea>
+									</div>
+								</form>
+						          
+						      </div>
+						      <div class="modal-footer">
+						      <button type="button" onclick="javascript:Reply();" class="btn btn-primary">Post</button>
+						        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						        
+						      </div>
+						    </div>
+						  </div>
+			</div>
+
+			
+				<button type="button" ng-click="GetMsgs(TopicName);" id="notificationBtn" class="btn btn-default notificationBtn">See New Updates</button>
+			
+		  		<div ng-repeat="x in DisMsgs" class="panel panel-default">
+		  		
+		  			<div class="panel-heading"><img ng-src="{{GetPhoto(x.Author)}}" class="img-circle" id="photoInMsg"><a ng-href ="{{retNickname(x.Author);}}">@{{x.Author}}</a></div>
+			  		<div class="panel panel-body"> 
+			  			<p ng-bind-html="TrustMsgContent(x.MsgText)"></p>
+			  		</div>
+			  		<div id="displayTime">{{x.date}}</div>
+			  		<div class="modal-footer">
+					  <a data-toggle="modal"  href="#myModal5" ng-click="ReplyName(x.Author);"  class="btn btn-primary" id="reply">Reply</a>
+								
+						<!-- Modal myModal4 -->
+						 <button type="button" ng-click="RepublishFunc(x.MsgID);" class="btn btn-primary">Republish</button>
+						 <button type="button" ng-click="Follow(x.Author);" id="FollowBtn" class="btn btn-primary" >{{isFollow(x.Author)}}</button>
+					</div>
+			  		
+				</div>
+			</div>
+		
+			
+		</div>
+		
+		<br>
+	
+	</body>
+</html>

@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+	<head >
+		<meta charset="UTF-8">
+	
+		<title>Profile</title>
+			
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+		
+
+        <script type='text/javascript' src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+		
+	<link rel="stylesheet" href="ProfileStyle.css">
+		
+	<script src="/New/GetInformation.js"></script>
+	<script src="/New/GetAllUsers.js"></script>
+	<script src="/New/HashtagChange.js"></script>
+	<script src="/New/Displays.js"></script>
+		
+	<script>
+	
+	//function executed when the user posted a message.
+	function PostMsg(){
+		$.ajax({
+	    	type: "POST",
+	        url: "/New/PostMsgServlet",
+	        data: $('#PostMsgForm').serialize(),
+	        success: function(res, status, xhr) {
+	        	//var obj = JSON.parse(res);
+	        	$('#myModal3').modal('hide');
+	        	$('#msgText').val("");
+	
+	        },
+	        error: function() {
+	       }
+	    });
+	}
+	
+	//function executed when the user replys to a message.
+	 function Reply(){
+		$.ajax({
+	    	type: "POST",
+	        url: "/New/PostMsgServlet",
+	        data: $('#ReplyForm').serialize(),
+	        success: function(res, status, xhr) {
+	        	//var obj = JSON.parse(res);
+	        	$('#myModal4').modal('hide');
+		        	
+	        },
+	        error: function() {
+	       }
+	    });
+	}	
+	
+	
+</script>	
+	
+</head>
+
+	<body>
+		
+<nav class="navbar navbar-default">
+		  <form class="navbar-form navbar-left" >
+		  	<a class="navbar-brand" href="Profile.html">
+	        <img id="brand_img" alt="Brand" src="brand.jpg" width="160" >
+	      </a>
+
+		  <div id="header_div">
+			<button type="button" onclick="javascript:GoToProfile();" class="btn btn-primary">
+			<span class="glyphicon glyphicon-user"></span>  My Profile</button>
+			<button type="button" onclick="javascript:GoToDiscover();" class="btn btn-primary">
+			<span class="glyphicon glyphicon-globe"></span>  Discover</button>
+		  	</div>
+		  
+		</form>
+</nav>
+		
+		
+		<div class="col-xs-3" id="aboutmeDiv">
+
+			<div class="panel panel-default postmsgDiv">
+			  <div class="panel-heading " ><b>Profile Info</b></div>
+				  <div class="panel-body" >
+				  			<div class="page-header-fluid" id="profileheader">
+			  <h1 ><img src="javascript:void(0);"  id = "imageprofile" alt="Your Photo"  class="img-circle"> <small id="helloUser"></small></h1>
+			</div>
+				  <p id="aboutme"></p>
+			 </div>
+			</div>
+		
+<!-- FOLLOWERS BUTTON -->		
+  <a data-toggle="modal" href="#myModal" class="btn btn-primary" id="followers"></a>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Your Followers</h4>
+      </div>
+      <div class="modal-body">
+       
+       <div ng-app = "myFollowers" id="myFollowers" ng-controller = "FollowerCrtl">
+			<div ng-repeat="x in followers">
+			<ul class="list-group">
+
+    				<li id = "followerName" class="list-group-item"> <img ng-src="{{x.Photo}}" class="img-circle" id="followerImg">
+    				 <span  ng-bind-html="TrustMsgContent(x.Nickname)"></span></li>
+			</ul>
+				
+				
+			</div>
+		</div>
+		
+		<!-- BOOTSTRAP myFollowers APPLICATION -->
+		<script src="/New/myFollowers.js"></script>
+       
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+<br><br>
+		
+<!-- FOLLOWing BUTTON -->		
+  <a data-toggle="modal" href="#myModal2" class="btn btn-primary" id="following"></a>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel2">Following:</h4>
+      </div>
+      <div class="modal-body">
+        
+        <div ng-app = "myFollowing" id="myFollowing" ng-controller = "FollowingCrtl">
+			<div ng-repeat="x in following">
+			<ul class="list-group">
+    				<li id = "followingName" class="list-group-item"> <img ng-src="{{x.Photo}}" class="img-circle" id="followingImg" alt="User Photo"> <span  ng-bind-html="TrustMsgContent(x.Nickname)"></span></li>
+			</ul>
+					
+			</div>
+		</div>
+		
+		<!-- BOOTSTRAP myFollowers APPLICATION -->
+		<script src="/New/myFollowing.js"></script>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+<br><br>
+
+
+<!-- New Message BUTTON -->		
+  <a data-toggle="modal" href="#myModal3" class="btn btn-primary" id="newmsg"><span class="glyphicon glyphicon-envelope"></span>  New Message</a>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel3">Write Message  <span class="glyphicon glyphicon-pencil"></span></h4>
+      </div>
+      <div class="modal-body">
+      
+      <form id="PostMsgForm" method="POST">
+        <div class="input-group">
+			<span class="input-group-addon" id="basic-addon1"></span>
+			<textarea  name="msgText" id="msgText" rows="4" cols="5"  class="form-control" placeholder="" aria-describedby="basic-addon1" required ></textarea>
+		</div>
+	</form>
+		
+      </div>
+      <div class="modal-footer">
+        <button type="button" onclick="javascript:PostMsg();" class="btn btn-primary">Post</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        
+      </div>
+    </div>
+  </div>
+</div>
+			
+</div>
+		
+	<!-- <div class="col-xs-1"></div> -->	
+		
+		<div class="col-xs-6" id="messagesDiv">
+		<br>
+			<div id="msgsID"  ng-controller="myMsgsrCtrl"> 
+			
+			
+			<div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						  <div class="modal-dialog">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						        <h4 class="modal-title" id="myModalLabel5">Reply</h4>
+						      </div>
+						      <div class="modal-body">
+						        
+						        <form id="ReplyForm" method="POST">
+						      	  <div class="input-group">
+									<span class="input-group-addon" id="basic-addon2"></span>
+									<textarea  name="replymsg" id="replymsg" rows="4" cols="5"  class="form-control" placeholder="" aria-describedby="basic-addon1" required ></textarea>
+									</div>
+								</form>
+						          
+						      </div>
+						      <div class="modal-footer">
+						      <button type="button" onclick="javascript:Reply();" class="btn btn-primary">Post</button>
+						        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						        
+						      </div>
+						    </div>
+						  </div>
+			</div>
+			
+		  		<div ng-repeat="x in msgs" class="panel panel-default">
+		  		
+		  			<div class="panel-heading"><img ng-src="{{GetPhoto(x.Author)}}" class="img-circle" id="photoInMsg">{{" "+x.Author}}</div>
+			  		<div class="panel panel-body"> 
+			  			<p ng-bind-html="TrustMsgContent(x.MsgText)"></p>
+			  		</div>
+			  		
+			  		<div id="displayTime">{{x.date}}</div>
+			  	<div class="modal-footer">
+					  <a data-toggle="modal"  href="#myModal4" ng-click="ReplyName(x.Author);"  class="btn btn-primary" id="reply">Reply</a>
+								
+						<!-- Modal myModal4 -->
+						 <button type="button" ng-click="RepublishFunc(x.MsgID);" class="btn btn-primary">Republish</button>
+						  
+					</div>
+    					  	
+				</div>
+		</div>
+		
+		<!-- BOOTSTRAP mtMsgsApp APPLICATION -->
+		<script src="/New/myMsgsApp.js"></script>
+
+		</div>
+		
+		<div>
+			<button type="button" onclick="javascript:FollowMe();"  id="followMeBtn" class="btn btn-primary">Follow Me</button>
+		</div>
+		<br>
+		
+		<br>
+
+
+		<br>
+
+	</body>
+</html>

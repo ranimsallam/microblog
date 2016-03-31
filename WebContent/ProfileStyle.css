@@ -1,0 +1,78 @@
+body {
+				
+			}
+			#imageprofile{
+				width:128px;
+				height:128px;
+				
+			}
+			#followerImg{
+				width:50px;
+				height:50px;
+			}
+			#followingImg{
+				width:50px;
+				height:50px;
+			}
+			#displayTime{
+				margin-top: -14px;
+				font-style: italic;
+			}
+						.postmsgDiv{ 
+				margin-top:50px;	
+			}
+			#brand_img{
+				position: relative;
+    			top: 8px;
+    			left: 0px;
+			}
+			#header_div{
+				position: relative;
+   			left: 180px;
+			}
+			#aboutmeDiv{
+			
+				margin-top: 62px;
+			}
+			#messagesDiv{
+			margin-top: 80px;
+			}
+			#helloUser{
+				color:MidnightBlue
+			}
+			
+			.navbar {
+position: relative;
+min-height: 50px;
+margin-bottom: -65px;
+border: 1px solid transparent;
+}
+			
+			#followerName{
+				font-size: 15px;
+				font-weight: bold;
+			}
+			#followingName{
+				font-size: 15px;
+				font-weight: bold;
+			}
+			#photoInMsg{
+				width:40px;
+				height:40px;
+			}
+			#displayTime{
+				margin-top: -14px;
+			}
+			html { 
+
+background: url('wallpaper.jpg') no-repeat center center fixed; 
+
+-webkit-background-size: cover;
+
+-moz-background-size: cover;
+
+-o-background-size: cover;
+
+background-size: cover;
+
+}

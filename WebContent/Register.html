@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		
+		<title>RanKir Microbloger</title>
+			
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+		<link rel="stylesheet" href="RegisterStyle.css">
+
+        <script type='text/javascript' src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+        
+		<script src="http://code.jquery.com/jquery.min.js"></script>
+		<!-- <script src="js/bootstrap.min.js"></script> -->
+		
+		<script>
+		// $(document).ready()
+		
+		$( document ).ready(function() {
+			$('#descriptionRegister').keypress(function() {
+			      var $this, WordsCounter;
+			      $this = $(this);
+			      WordsCounter = $this.val().split(/\b[\s,\.-:;]*/).length;
+			      if (WordsCounter > 50) {    
+			    	 $('#descriptionRegister').blur();
+			      }
+			    });
+	});
+		
+		var obj;
+		
+		function login(){
+				var ErrMsg = "Incorrect Username/Password" ;
+				$.ajax({
+			    	type: "POST",
+			        url: "/New/LoginServlet",
+			        data: $('#loginForm').serialize(),
+			        success: function(res, status, xhr) {
+			        		obj = JSON.parse(res);
+			        		if(obj[0] === undefined ){
+			        			$('#loginErr').text(ErrMsg);
+			        		}else{
+			        			loginedUser = obj[0].Username;
+			        			window.location = "/New/Discover.html";
+			        		}
+			        		
+			        },
+			        error: function() {
+			        	$('#loginErr').text("FAILED");
+			       }
+			    });	
+		}
+		
+		function register(){
+			var ErrMsg = "Username/Nickname already exist ";
+			$.ajax({
+		    	type: "POST",
+		        url: "/New/RegisterServlet",
+		        data: $('#registerForm').serialize(),
+		        success: function(res, status, xhr) {
+		        	
+		        		obj = JSON.parse(res);
+		        		if(obj[0] === undefined ){
+		        			
+		        			$('#registerErr').text(ErrMsg);
+		        		}else{
+	        				loginedUser = obj[0].Username;
+		        			window.location = "/New/Discover.html";
+		        		}
+		        },
+		        error: function() {
+		        		$('#registerErr').text("FAILED");
+		        	
+		       }
+		    });	
+	}
+	
+	
+
+		</script>
+
+
+	</head>
+	<body >
+
+		
+
+		<div class="container-fluid">
+			<div class="row">
+				<div id="left" class="col-xs-6">
+					<h2 id="welcomeHead"><b> Welcome to our MicroBlog! </b></h2>
+					<p id="welcomeText"> Connect to the World! </p>
+				</div>
+				
+				<div id="right" class="col-xs-4">
+					<div id="loginDiv" >
+					
+						<form action="javascript:login();" id="loginForm" method="post">
+						    <span id="loginTitle"><span class="glyphicon glyphicon-log-in"></span><b> Login</b></span>
+							<div class="input-group"  >
+								<span class="input-group-addon" id="basic-addon1"></span>
+								<input type = "text" name="username" id="userLogin" size ="10" class="form-control" placeholder="Username" aria-describedby="basic-addon1" />
+							</div>
+									
+							<div class="input-group">
+								<span class="input-group-addon" id="basic-addon2"></span>
+								<input type = "password" name="password" id="passwordLogin" size="10" class="form-control" placeholder="Password" aria-describedby="basic-addon1" />
+							</div>
+									 
+							<div>
+								<button type="submit" id="loginButton" class="btn btn-default" aria-label="Left Align">
+									<span><b>Login</b> 
+										<span class="glyphicon glyphicon-chevron-right " aria-hidden="true"></span>
+									</span>
+								</button>
+							</div>
+							<div id="loginErr"></div>
+							
+						</form><br><br>
+						
+						
+						<form action="javascript:register();" method="POST" id="registerForm" name = "RegisterForm" >
+							<span id="registerTitle"><span class="glyphicon glyphicon-user"></span><b> Sign up</b></span>
+							<div class="input-group"  >
+								<span class="input-group-addon" id="basic-addon3"></span>
+								<input type = "text" name="username" id="userRegister" size ="10"  maxlength="10"  class="form-control" placeholder="Username" aria-describedby="basic-addon1" required />
+							</div>
+									
+							<div class="input-group">
+								<span class="input-group-addon" id="basic-addon4"></span>
+								<input type = "password" name="password" id="passwordRegister" size="10" maxlength="8" class="form-control" placeholder="Password" aria-describedby="basic-addon1" required/>
+							</div>
+									 
+							<div class="input-group">
+								<span class="input-group-addon" id="basic-addon5"></span>
+								<input type = "text" name="nickname" id="nicknameRegister" size="10" maxlength="20" class="form-control" placeholder="Nickname" aria-describedby="basic-addon1" required />
+							</div>
+									 
+							<div class="input-group">
+								<span class="input-group-addon" id="basic-addon6"></span>
+								<textarea rows="4" cols="5" name="description" id="descriptionRegister"  maxlength="50" placeholder="About Myself" class="form-control" aria-describedby="basic-addon1" ></textarea>
+							</div>
+			<!-- DONT FORGET TO ADD PHOTO  -->
+							<div class="input-group">
+								<span class="input-group-addon" id="basic-addon7"></span>
+								<input type = "text" name="photo" id="photo" size="10" class="form-control" placeholder="photo url" aria-describedby="basic-addon1" />
+							</div>
+						 
+							<div>
+								<button type="submit" id="register" class="btn btn-default" aria-label="Left Align">
+									<span><b>Register</b> 
+										<span class="glyphicon glyphicon-chevron-right " aria-hidden="true"></span>
+									</span>
+								</button>
+							</div>
+							<div id="registerErr"></div>
+								 
+						</form>
+					</div>	
+						
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
